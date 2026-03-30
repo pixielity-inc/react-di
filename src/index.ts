@@ -131,8 +131,3 @@ export { createModuleFactory, forRoot, forFeature } from "./utils";
 // Constants
 // ============================================================================
 export { METADATA_KEYS, DEFAULTS } from "./constants";
-
-// ============================================================================
-// Inversiland Core (Advanced Usage)
-// ============================================================================
-export { Inversiland, getModuleContainer } from "inversiland";
