@@ -1,12 +1,12 @@
 /**
- * @fileoverview Vitest setup file for @pixielity/container package
+ * @fileoverview Vitest setup file for @pixielity/react-di package
  * 
  * This file configures the testing environment before running tests. It runs
  * automatically before any test files are executed, setting up mocks, global
  * configurations, and test utilities.
  * 
  * Setup Features:
- * - Mock @pixielity/container decorators for isolated testing
+ * - Mock @pixielity/react-di decorators for isolated testing
  * - Clear mocks before each test for test isolation
  * - Reset mocks after each test for cleanup
  * - Provide consistent test environment across all test files
@@ -19,7 +19,7 @@
  * - Testing decorator behavior independently
  * - Avoiding complex container initialization in simple tests
  * 
- * @module @pixielity/container
+ * @module @pixielity/react-di
  * @category Configuration
  * @see {@link https://vitest.dev/config/#setupfiles} - Vitest setup files documentation
  */
@@ -27,7 +27,7 @@
 import { beforeEach, afterEach, vi } from "vitest";
 
 /**
- * Mock @pixielity/container decorators
+ * Mock @pixielity/react-di decorators
  * 
  * This mock ensures that Injectable, Inject, Module, and other decorators
  * work in tests without requiring the full DI container setup. The mocks
@@ -53,7 +53,7 @@ import { beforeEach, afterEach, vi } from "vitest";
  * Note: For integration tests that require actual DI functionality,
  * you may need to unmock these decorators using vi.unmock()
  */
-vi.mock("@pixielity/container", () => ({
+vi.mock("@pixielity/react-di", () => ({
   // Mock Injectable decorator - returns class unchanged
   Injectable: () => (target: any) => target,
   
