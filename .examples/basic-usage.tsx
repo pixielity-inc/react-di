@@ -4,14 +4,14 @@
  * This example demonstrates the basic usage of @pixielity/react-di
  */
 
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import {
   Module,
   Injectable,
   Inject,
   Inversiland,
   useInject,
-} from "@pixielity/react-di";
+} from "../src/index";
 
 // 1. Define services
 @Injectable()
@@ -53,7 +53,7 @@ function UserList() {
     <div>
       <h2>Users</h2>
       <ul>
-        {users.map((user) => (
+        {users.map((user: string) => (
           <li key={user}>{user}</li>
         ))}
       </ul>
