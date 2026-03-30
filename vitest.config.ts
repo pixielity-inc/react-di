@@ -1,5 +1,5 @@
 /**
- * @fileoverview Vitest configuration for @pixielity/container package
+ * @fileoverview Vitest configuration for @pixielity/react-di package
  * 
  * This configuration sets up the testing environment for the container package,
  * including test globals, jsdom environment, coverage reporting, and path aliases.
@@ -11,7 +11,7 @@
  * - Coverage: Configures v8 coverage provider with HTML/JSON/text reports
  * - Path Aliases: Resolves @ to ./src for consistent imports
  * 
- * @module @pixielity/container
+ * @module @pixielity/react-di
  * @category Configuration
  */
 

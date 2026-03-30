@@ -72,10 +72,10 @@ export default defineConfig({
   /**
    * External dependencies that should not be bundled.
    * 
-   * - @pixielity/container: DI system (peer dependency)
+   * - @pixielity/react-di: DI system (peer dependency)
    * - react: React library (optional peer dependency for hooks)
    */
-  external: ['@pixielity/container', 'react'],
+  external: ['@pixielity/react-di', 'react'],
 
   /**
    * Disable code splitting for library builds.

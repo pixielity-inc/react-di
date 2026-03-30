@@ -1,7 +1,7 @@
 /**
  * Basic Usage Example
  *
- * This example demonstrates the basic usage of @pixielity/container
+ * This example demonstrates the basic usage of @pixielity/react-di
  */
 
 import React, { useEffect } from "react";
@@ -11,7 +11,7 @@ import {
   Inject,
   Inversiland,
   useInject,
-} from "@pixielity/container";
+} from "@pixielity/react-di";
 
 // 1. Define services
 @Injectable()

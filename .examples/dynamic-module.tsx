@@ -13,7 +13,7 @@ import {
   forRoot,
   useInject,
   type DynamicModule,
-} from "@pixielity/container";
+} from "@pixielity/react-di";
 
 // 1. Define configuration token
 export const DATABASE_CONFIG = Symbol("DATABASE_CONFIG");
@@ -65,7 +65,7 @@ class DatabaseModule {
 class AppModule {}
 
 // 5. Initialize and use in components
-import { Inversiland } from "@pixielity/container";
+import { Inversiland } from "@pixielity/react-di";
 
 // Initialize Inversiland
 Inversiland.options.logLevel = "debug";
