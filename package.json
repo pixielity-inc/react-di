@@ -16,9 +16,14 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/pixielity/pixielity.git",
-    "directory": "packages/container"
+    "url": "https://github.com/pixielity-inc/container.git"
   },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
   "license": "MIT",
   "author": "Pixielity",
   "main": "dist/index.js",
