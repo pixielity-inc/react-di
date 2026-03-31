@@ -336,6 +336,173 @@ coverage/
 *.log
 ```
 
+### 6. prettierrc.ts
+
+```typescript
+/**
+ * @fileoverview Prettier Configuration
+ * 
+ * Extends the Nesvel Prettier configuration for consistent code formatting.
+ * 
+ * @see https://prettier.io/docs/en/configuration.html
+ */
+
+export default '@nesvel/prettier-config';
+```
+
+**Key Points:**
+- MUST be named `prettierrc.ts` (not `.prettierrc.js`)
+- MUST include docblock with `@fileoverview` and `@see` tags
+- Extends `@nesvel/prettier-config` for consistency across packages
+- Used by `format` and `format:check` scripts
+
+### 7. CI/CD Workflows (.github/workflows/)
+
+Every package MUST have these two GitHub Actions workflows:
+
+#### ci.yml - Continuous Integration
+
+```yaml
+# =============================================================================
+# CI Workflow
+# =============================================================================
+# Runs automated tests and linting on every push and pull request to main/develop
+# branches. Ensures code quality and prevents broken code from being merged.
+#
+# Jobs:
+# - test: Runs tests on Node.js 18 and 20
+# - lint: Checks code formatting with Prettier
+# =============================================================================
+
+name: CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  # ===========================================================================
+  # Test Job
+  # ===========================================================================
+  # Runs the test suite on multiple Node.js versions to ensure compatibility
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18, 20]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build package
+        run: npm run build
+
+      - name: Run tests
+        run: npm run test
+        continue-on-error: true
+
+  # ===========================================================================
+  # Lint Job
+  # ===========================================================================
+  # Checks code formatting to ensure consistent code style
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check formatting
+        run: npm run format:check
+        continue-on-error: true
+```
+
+#### publish.yml - NPM Publishing
+
+```yaml
+# =============================================================================
+# Publish to npm Workflow
+# =============================================================================
+# Automatically publishes the package to npm when a version tag is pushed.
+# Triggered by tags matching the pattern v* (e.g., v1.0.0, v1.2.3)
+#
+# Requirements:
+# - NPM_TOKEN secret must be configured in repository settings
+# - Package version in package.json must match the tag version
+#
+# Process:
+# 1. Checkout code
+# 2. Setup Node.js with npm registry
+# 3. Install dependencies
+# 4. Build package
+# 5. Publish to npm with public access
+# =============================================================================
+
+name: Publish to npm
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  # ===========================================================================
+  # Publish Job
+  # ===========================================================================
+  # Builds and publishes the package to npm registry
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build package
+        run: npm run build
+
+      - name: Publish to npm
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+```
+
+**Key Points:**
+- Use `npm ci` instead of `npm install` for reproducible builds
+- Use `npm run` for all script commands (not `pnpm run`)
+- Test on Node.js 18 and 20 for compatibility
+- Mark tests as `continue-on-error: true` if they're not critical
+- Publish workflow requires `NPM_TOKEN` secret in repository settings
+- Always use `--access public` for scoped packages
+
 ---
 
 ## 🏗️ Registry Pattern (for Extensible Systems)
