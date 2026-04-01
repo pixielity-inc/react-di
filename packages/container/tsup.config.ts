@@ -75,7 +75,7 @@ export default defineConfig({
    * - @abdokouta/react-di: DI system (peer dependency)
    * - react: React library (optional peer dependency for hooks)
    */
-  external: ["@abdokouta/react-di", "react"],
+  external: ["@abdokouta/react-di", "react", "inversiland", "reflect-metadata"],
 
   /**
    * Disable code splitting for library builds.
